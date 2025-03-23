@@ -1,7 +1,8 @@
-package com.microservice.StatsMicroservice.web;
+package com.microservice.StatsMicroservice.web.controller;
 
 import com.microservice.StatsMicroservice.activity.model.Activity;
 import com.microservice.StatsMicroservice.activity.service.ActivityService;
+import com.microservice.StatsMicroservice.web.dto.ActivityPayload;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,8 +22,8 @@ public class ActivityController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Void> create(@Valid @RequestBody Activity activity){
-        activityService.create(activity);
+    public ResponseEntity<Void> create(@Valid @RequestBody ActivityPayload activityPayload){
+        activityService.create(activityPayload);
         return ResponseEntity.ok().build();
     }
 

@@ -3,6 +3,7 @@ package com.microservice.StatsMicroservice.unit;
 import com.microservice.StatsMicroservice.activity.model.Activity;
 import com.microservice.StatsMicroservice.activity.repository.ActivityRepository;
 import com.microservice.StatsMicroservice.activity.service.ActivityService;
+import com.microservice.StatsMicroservice.web.dto.ActivityPayload;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -31,15 +32,18 @@ class ActivityServiceTest {
 
     @Test
     void testCreateActivity() {
-        Mockito.when(activityRepository.save(Mockito.any())).then(v -> v.getArguments()[0]);
+
+        ActivityPayload activityPayload = new ActivityPayload();
+        activityPayload.setPath("NewActivityPath");
 
         Activity activity = new Activity();
+        activity.setPath(activityPayload.getPath());
 
-        when(activityRepository.save(activity)).thenReturn(activity);
+        Mockito.when(activityRepository.save(Mockito.any(Activity.class))).thenReturn(activity);
 
-        activityService.create(activity);
+        activityService.create(activityPayload);
 
-        verify(activityRepository, times(1)).save(activity);
+        verify(activityRepository, times(1)).save(Mockito.any(Activity.class));
     }
 
     @Test

@@ -1,7 +1,8 @@
-package com.microservice.StatsMicroservice.web;
+package com.microservice.StatsMicroservice.web.controller;
 
 import com.microservice.StatsMicroservice.activity.model.DeletedFiles;
 import com.microservice.StatsMicroservice.activity.service.DeletedFilesService;
+import com.microservice.StatsMicroservice.web.dto.DeletedFilesPayload;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,8 +21,8 @@ public class DeletedFilesController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Void> create(@Valid @RequestBody DeletedFiles deletedFiles){
-        deletedFilesService.create(deletedFiles);
+    public ResponseEntity<Void> create(@Valid @RequestBody DeletedFilesPayload deletedFilesPayload){
+        deletedFilesService.create(deletedFilesPayload);
         return ResponseEntity.ok().build();
     }
 
